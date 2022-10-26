@@ -1,3 +1,7 @@
+export const countWords = (arrayOfWords, wordToCount) => {
+  const stemWordToCount = stemWord(wordToCount)
+  return arrayOfWords.reduce((a, c) => (a[c] = (a[c] || 0) + 1, a), {})[stemWordToCount]; 
+}
 
 const filterOutEmptyStrings = (charArray) => {
   return charArray.filter(c => c !== '')
@@ -22,9 +26,6 @@ const stripPlural = (word) => {
   return word.replace(foundPlural, '')
 }
 
-const stemWord = (word) => {
+export const stemWord = (word) => {
   return groupWord(stripPlural(word))
 }
-
-module.exports = stemWord
- 

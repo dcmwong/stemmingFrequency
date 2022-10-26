@@ -1,4 +1,4 @@
-const stemWord = require('./index.js')
+import { stemWord, countWords } from './index'
 
 describe('Stemmer', () => {
   describe('Given a word that cannot be stemmed', () => {
@@ -40,6 +40,16 @@ describe('Stemmer', () => {
       const originalWord = 'classify' 
       const result = stemWord(originalWord)
       expect(result).toEqual('class')
+    })
+  })
+
+  describe('Given list of words with the same stem', () => {
+    it.each(
+      ['class', 'classification', 'classify']
+    )('when given %p should return count correctly', (word) => {
+      const originalWords = 'class classification classify' 
+      const result = countWords(originalWords.split(' ').map(stemWord), word)
+      expect(result).toEqual(3)
     })
   })
 })
