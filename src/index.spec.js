@@ -19,10 +19,27 @@ describe('Stemmer', () => {
       const result = stemWord(originalWord)
       expect(result).toEqual('flow flow')
     })
-    it('should return original word and singular word when sentence contains stem', () => {
+    it('when setence contains stem should return original word and singular word', () => {
       const originalWord = 'flows flow flower' 
       const result = stemWord(originalWord)
       expect(result).toEqual('flow flow flower')
+    })
+  })
+  describe('Given a group word', () => {
+    it('when stem should return the stemmed word', () => {
+      const originalWord = 'class' 
+      const result = stemWord(originalWord)
+      expect(result).toEqual('class')
+    })
+    it('when noun form should return the stemmed word', () => {
+      const originalWord = 'classification' 
+      const result = stemWord(originalWord)
+      expect(result).toEqual('class')
+    })
+    it('when verb form should return the stemmed word', () => {
+      const originalWord = 'classify' 
+      const result = stemWord(originalWord)
+      expect(result).toEqual('class')
     })
   })
 })
