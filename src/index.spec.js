@@ -42,6 +42,18 @@ describe('Stemmer', () => {
       expect(result).toEqual('class')
     })
   })
+  describe('Given word flowery, flowers', () => {
+    it('when stem should return the stemmed word', () => {
+      const originalWord = 'flowery' 
+      const result = stemWord(originalWord)
+      expect(result).toEqual('flower')
+    })
+    it('when noun form should return the stemmed word', () => {
+      const originalWord = 'flowers' 
+      const result = stemWord(originalWord)
+      expect(result).toEqual('flower')
+    })
+  })
 
   describe('Given list of words with the same stem', () => {
     it.each(

@@ -1,11 +1,13 @@
-export const countWords = (arrayOfWords, wordToCount) => {
-  const stemWordToCount = stemWord(wordToCount)
-  return arrayOfWords.reduce((a, c) => (a[c] = (a[c] || 0) + 1, a), {})[stemWordToCount]; 
-}
-
 const filterOutEmptyStrings = (charArray) => {
   return charArray.filter(c => c !== '')
 }
+
+const adjectiveWord = (word) => {
+  const groupTokens = /(y\b|\b)/g
+  const foundGroups = filterOutEmptyStrings(word.match(groupTokens)).join('')
+  return word.replace(foundGroups, '')
+}
+
 const groupWord = (word) => {
   const groupTokens = /(ify\b|ification\b|\b)/g
   const foundGroups = filterOutEmptyStrings(word.match(groupTokens)).join('')
@@ -27,5 +29,10 @@ const stripPlural = (word) => {
 }
 
 export const stemWord = (word) => {
-  return groupWord(stripPlural(word))
+  return adjectiveWord(groupWord(stripPlural(word)))
+}
+
+export const countWords = (arrayOfWords, wordToCount) => {
+  const stemWordToCount = stemWord(wordToCount)
+  return arrayOfWords.reduce((a, c) => (a[c] = (a[c] || 0) + 1, a), {})[stemWordToCount]; 
 }
