@@ -1,38 +1,24 @@
-const filterOutEmptyStrings = (charArray) => {
-  return charArray.filter(c => c !== '')
-}
-
-const adjectiveWord = (word) => {
-  const groupTokens = /(y\b|\b)/g
-  const foundGroups = filterOutEmptyStrings(word.match(groupTokens)).join('')
-  return word.replace(foundGroups, '')
-}
-
-const groupWord = (word) => {
-  const groupTokens = /(ify\b|ification\b|\b)/g
-  const foundGroups = filterOutEmptyStrings(word.match(groupTokens)).join('')
-  return word.replace(foundGroups, '')
-}
-
 const wordEndsWithSS = (word) => {
-  const checkForSS = /(ss\b|\b)/g
-  return filterOutEmptyStrings(word.match(checkForSS)).length > 0
+  const ssAtTheEndToken = /(ss$\b)/g
+  return word.match(ssAtTheEndToken)
 }
 
-const stripPlural = (word) => {
-  if(wordEndsWithSS(word))
+export const getStemWord = (word) => {
+  const pluralisingTokens = /((s|lies|lier|ify|ification|ly|y)\b)/g
+  
+  if(wordEndsWithSS(word) || !word.match(pluralisingTokens))
     return word
 
-  const pluralisingTokens = /(s\b|\b)/g
-  const foundPlural = word.match(pluralisingTokens).filter(x => x !=='').join('')
+  const foundPlural = 
+    word.match(pluralisingTokens)
+
   return word.replace(foundPlural, '')
 }
 
-export const stemWord = (word) => {
-  return adjectiveWord(groupWord(stripPlural(word)))
-}
-
-export const countWords = (arrayOfWords, wordToCount) => {
-  const stemWordToCount = stemWord(wordToCount)
-  return arrayOfWords.reduce((a, c) => (a[c] = (a[c] || 0) + 1, a), {})[stemWordToCount]; 
+export const countWords = (inputText, wordToCount) => {
+  const stemWordToCount = getStemWord(wordToCount)
+  return inputText
+    .split(' ')
+    .map(getStemWord)
+    .reduce((a, c) => (a[c] = (a[c] || 0) + 1, a), {})[stemWordToCount]; 
 }
