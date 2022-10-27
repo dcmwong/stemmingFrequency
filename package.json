@@ -2,7 +2,7 @@
   "name": "stemming-frequency",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/getWord.js",
   "type": "module",
   "scripts": {
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest"
@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^29.2.2"
+  },
+  "dependencies": {
+    "yargs": "^13.2.4"
   }
 }

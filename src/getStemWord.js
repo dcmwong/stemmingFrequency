@@ -1,4 +1,4 @@
-import wordEndsWithSS from './wordEndsWithSS'
+import wordEndsWithSS from './wordEndsWithSS.js'
 
 export default (word) => {
   const pluralisingTokens = /((s|lies|lier|ify|ification|ly|y|es)\b)/g
