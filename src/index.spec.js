@@ -1,4 +1,6 @@
-import { getStemWord, countWords, sanitizeInputText } from './index'
+import getStemWord from './getStemWord'
+import sanitizeInputText from './sanitizeInputText'
+import { countWords } from './index'
 
 describe('Stemmer', () => {
   describe('Given a word that cannot be stemmed', () => {
