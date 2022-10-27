@@ -4,7 +4,7 @@ const wordEndsWithSS = (word) => {
 }
 
 export const getStemWord = (word) => {
-  const pluralisingTokens = /((s|lies|lier|ify|ification|ly|y)\b)/g
+  const pluralisingTokens = /((s|lies|lier|ify|ification|ly|y|es)\b)/g
   
   if(wordEndsWithSS(word) || !word.match(pluralisingTokens))
     return word
@@ -15,10 +15,12 @@ export const getStemWord = (word) => {
   return word.replace(foundPlural, '')
 }
 
+export const sanitizeInputText = (word) => word.replace(/\./g, '').toLowerCase()
+
 export const countWords = (inputText, wordToCount) => {
   const stemWordToCount = getStemWord(wordToCount)
-  return inputText
+  return sanitizeInputText(inputText)
     .split(' ')
     .map(getStemWord)
-    .reduce((a, c) => (a[c] = (a[c] || 0) + 1, a), {})[stemWordToCount]; 
+    .reduce((aggregrate, word) => (aggregrate[word] = (aggregrate[word] || 0) + 1, aggregrate), {})[stemWordToCount]; 
 }
